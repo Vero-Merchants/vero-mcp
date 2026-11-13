@@ -244,13 +244,12 @@ func BuildImageReceiptRequestWithContext(imageBytes []byte, mimeType string, sup
 	}
 
 	reqBody := map[string]interface{}{
-		"model": "gpt-5-mini",
-		// Minimal reasoning is more accurate here, not merely cheaper: with the
-		// default (medium) effort the model consolidates line items it should not
-		// and drifts on the item total, while minimal reproduces it exactly. It is
-		// also ~4x faster, which keeps a long receipt clear of the client timeout.
-		// gpt-5-nano under-extracts long receipts at every effort level.
-		"reasoning_effort": "minimal",
+		"model": "gpt-6.1-terra",
+		// Photos need the mid tier. gpt-6-luna misreads them (card last four,
+		// dates, prices) with reasoning off, and at medium effort it takes a
+		// 35-line receipt past the client timeout. Terra with reasoning off reads
+		// every golden receipt correctly and finishes the long one in about 16s.
+		"reasoning_effort": "none",
 		"messages": []map[string]interface{}{
 			{
 				"role":    "user",
@@ -732,7 +731,7 @@ Instructions:
 	}
 
 	reqBody := map[string]interface{}{
-		"model": "gpt-5-nano",
+		"model": "gpt-6-luna",
 		"messages": []map[string]interface{}{
 			{
 				"role": "user",
@@ -826,7 +825,7 @@ Respond with a JSON object.`, receiptMerchant, txSide)
 	}
 
 	reqBody := map[string]interface{}{
-		"model": "gpt-5-nano",
+		"model": "gpt-6-luna",
 		"messages": []map[string]interface{}{
 			{"role": "user", "content": []map[string]interface{}{{"type": "text", "text": prompt}}},
 		},
@@ -838,11 +837,11 @@ Respond with a JSON object.`, receiptMerchant, txSide)
 				"schema": schema,
 			},
 		},
-		// gpt-5 is a reasoning model and max_completion_tokens covers reasoning plus
-		// output. "minimal" keeps reasoning cheap — this is a classification, not a
-		// puzzle — and the generous budget guarantees room for the JSON payload, so
-		// the response is never truncated to empty (finish_reason=length).
-		"reasoning_effort":      "minimal",
+		// Reasoning is off: this is a classification, not a puzzle.
+		// max_completion_tokens covers any reasoning plus output, and the generous
+		// budget guarantees room for the JSON payload, so the response is never
+		// truncated to empty (finish_reason=length).
+		"reasoning_effort":      "none",
 		"max_completion_tokens": 4096,
 	}
 
@@ -891,7 +890,7 @@ Respond with a JSON object.`, receiptMerchant, txSide)
 }
 
 // CorrectCategory asks the LLM whether a receipt's line items show that Plaid
-// mis-categorized a transaction. Uses gpt-5-nano for cost efficiency.
+// mis-categorized a transaction. Uses gpt-6-luna, the low-cost tier.
 //
 // merchant is required context, not decoration. Line items describe what was in
 // the basket, while the category describes what kind of business was paid; given
@@ -971,17 +970,17 @@ Respond with a JSON object.`, merchantLine, currentPrimary, currentDetailed, str
 		},
 		// Field order is load-bearing. Structured Outputs generates properties in
 		// the order "required" lists them, so a category named before "reason"
-		// is chosen with no reasoning yet written down — and with minimal
+		// is chosen with no reasoning yet written down — and with little
 		// reasoning effort there is little internal deliberation to fall back on.
-		// Asked that way the model reasoned its way to FOOD_AND_DRINK_COFFEE and
-		// simultaneously emitted GENERAL_MERCHANDISE_SPORTING_GOODS. Reasoning
+		// Asked that way the model argues its way to FOOD_AND_DRINK_COFFEE and
+		// simultaneously emits GENERAL_MERCHANDISE_SPORTING_GOODS. Reasoning
 		// first makes the category a conclusion instead of a guess.
 		"required":             []string{"reason", "should_correct", "corrected_pfc_primary", "confidence"},
 		"additionalProperties": false,
 	}
 
 	reqBody := map[string]interface{}{
-		"model": "gpt-5-nano",
+		"model": "gpt-6-luna",
 		"messages": []map[string]interface{}{
 			{"role": "user", "content": []map[string]interface{}{{"type": "text", "text": prompt}}},
 		},
@@ -993,9 +992,9 @@ Respond with a JSON object.`, merchantLine, currentPrimary, currentDetailed, str
 				"schema": schema,
 			},
 		},
-		// Not "minimal", unlike the other nano-tier calls here, and narrowing the
-		// choice to 16 primaries did not change that: at minimal effort this
-		// model reasons its way to one category and emits another (its Marriott
+		// Medium effort, unlike the other text calls here, and narrowing the
+		// choice to 16 primaries does not remove the need: with little reasoning
+		// the model argues its way to one category and emits another (a Marriott
 		// answer read "primarily a hotel" and returned FOOD_AND_DRINK), and
 		// reports 0.55-0.62 confidence even when right, which is below the floor
 		// that decides whether a correction is used at all. This path only fires

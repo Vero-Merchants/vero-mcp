@@ -1,16 +1,16 @@
 {
-  "request_sha256": "4d35a19f329e18541735228d27521b7cac29cba3242c4738a9c5fdbaf6d580bd",
+  "request_sha256": "875e77c36e8482b00c8152b1aacc5796ad84227e379536d0331bc9d4b69af8bd",
   "response": {
-    "id": "chatcmpl-EH7ShEgbKxM0HC7FAfclfGUG9VOSC",
+    "id": "chatcmpl-EjiWbe901LV8RLgRl416zJXU6GwLw",
     "object": "chat.completion",
-    "created": 1787748967,
-    "model": "gpt-5-nano-2025-08-07",
+    "created": 1794564621,
+    "model": "gpt-6-luna",
     "choices": [
       {
         "index": 0,
         "message": {
           "role": "assistant",
-          "content": "{\"confidence\":0.85,\"reason\":\"Apple Store and Applebee's are clearly different businesses (Apple Store = Apple retail/store; Applebee's is a restaurant chain). The only overlap is the word 'Apple', but this does not imply the same business. There is no known abbreviation or DBA linking them; no POS prefixes indicative of the same entity.\",\"same_business\":false}",
+          "content": "{\"confidence\":0.99,\"reason\":\"Apple Store and Applebee's are different companies; the shared word does not indicate the same business.\",\"same_business\":false}",
           "refusal": null,
           "annotations": []
         },
@@ -19,10 +19,11 @@
     ],
     "usage": {
       "prompt_tokens": 360,
-      "completion_tokens": 92,
-      "total_tokens": 452,
+      "completion_tokens": 43,
+      "total_tokens": 403,
       "prompt_tokens_details": {
         "cached_tokens": 0,
+        "cache_write_tokens": 0,
         "audio_tokens": 0
       },
       "completion_tokens_details": {

@@ -1,16 +1,16 @@
 {
-  "request_sha256": "9694367923929f3693a2fa4adf8e1271ef36c8ea81b2f956295dda470e45d2c5",
+  "request_sha256": "e33beff2d78f2356593c5efb3612378ca94d5fb57bf23030c88592a531056f62",
   "response": {
-    "id": "chatcmpl-E1s7ZDRwv7Vae8H6R54OdJTRomdn4",
+    "id": "chatcmpl-EjiXQMIqUCksQScgeWP53bmf4BHlR",
     "object": "chat.completion",
-    "created": 1784115077,
-    "model": "gpt-5-mini-2025-08-07",
+    "created": 1794564672,
+    "model": "gpt-6.1-terra",
     "choices": [
       {
         "index": 0,
         "message": {
           "role": "assistant",
-          "content": "{\n  \"currency\": \"USD\",\n  \"isSubscription\": false,\n  \"lastFourDigits\": \"9267\",\n  \"lineItems\": [\n    {\n      \"description\": \"Ground Round (Medium, American)\",\n      \"quantity\": 1,\n      \"totalPrice\": 18.00,\n      \"unitPrice\": 18.00\n    },\n    {\n      \"description\": \"Soft Drinks\",\n      \"quantity\": 2,\n      \"totalPrice\": 7.00,\n      \"unitPrice\": 3.50\n    },\n    {\n      \"description\": \"Side Dressing (Ranch)\",\n      \"quantity\": 1,\n      \"totalPrice\": 1.00,\n      \"unitPrice\": 1.00\n    }\n  ],\n  \"merchantAddress\": \"2460 Market St, Detroit, MI 48207\",\n  \"merchantName\": \"Vivio's\",\n  \"paymentMethod\": \"Visa\",\n  \"subtotal\": 26.00,\n  \"tax\": 1.14,\n  \"tip\": 5.00,\n  \"total\": 27.14,\n  \"transactionDate\": \"2026-05-17\",\n  \"transactionTime\": \"13:53\"\n}",
+          "content": "{\"currency\":\"USD\",\"isSubscription\":false,\"lastFourDigits\":\"9267\",\"lineItems\":[{\"description\":\"Ground Round (Medium, American)\",\"quantity\":1,\"totalPrice\":18,\"unitPrice\":18},{\"description\":\"Soft Drinks\",\"quantity\":2,\"totalPrice\":7,\"unitPrice\":3.5},{\"description\":\"Side Dressing (Ranch)\",\"quantity\":1,\"totalPrice\":1,\"unitPrice\":1}],\"merchantAddress\":\"2460 Market St, Detroit, MI 48207\",\"merchantName\":\"Vivio's\",\"paymentMethod\":\"Visa\",\"subtotal\":26,\"tax\":1.14,\"tip\":5,\"total\":32.14,\"transactionDate\":\"2026-05-17\",\"transactionTime\":\"14:27\"}",
           "refusal": null,
           "annotations": []
         },
@@ -18,9 +18,9 @@
       }
     ],
     "usage": {
-      "prompt_tokens": 3663,
-      "completion_tokens": 267,
-      "total_tokens": 3930,
+      "prompt_tokens": 3836,
+      "completion_tokens": 162,
+      "total_tokens": 3998,
       "prompt_tokens_details": {
         "cached_tokens": 0,
         "audio_tokens": 0

@@ -1,16 +1,16 @@
 {
-  "request_sha256": "cd43852217d7de8cffb8646762659e755a3d2836cc73d23a9154c14bca037fb4",
+  "request_sha256": "8fbfe4ce979c50384b3f33220d02816b39adcb1613e99d3e2f5b352cd714d938",
   "response": {
-    "id": "chatcmpl-EHB4iMfbNv5nUHpJFCCtlU3I83X5R",
+    "id": "chatcmpl-EjiWcYPOjiNy4YdrhsOKH5xK8Dtma",
     "object": "chat.completion",
-    "created": 1787762856,
-    "model": "gpt-5-nano-2025-08-07",
+    "created": 1794564622,
+    "model": "gpt-6-luna",
     "choices": [
       {
         "index": 0,
         "message": {
           "role": "assistant",
-          "content": "{\"confidence\":0.85,\"corrected_pfc_primary\":\"FOOD_AND_DRINK\",\"reason\":\"Blue Bottle Coffee is a cafe, selling beverages and pastries. The items iced latte and blueberry scone are food and drink sold by a coffee shop, not general merchandise. The bank's GENERAL_MERCHANDISE category is inappropriate for this merchant.\",\"should_correct\":true}",
+          "content": "{\"confidence\":0.99,\"corrected_pfc_primary\":\"FOOD_AND_DRINK\",\"reason\":\"Blue Bottle Coffee is a coffee shop, and the receipt shows an iced latte and a scone—food and beverages sold by the merchant in its usual business.\",\"should_correct\":true}",
           "refusal": null,
           "annotations": []
         },
@@ -19,14 +19,15 @@
     ],
     "usage": {
       "prompt_tokens": 1571,
-      "completion_tokens": 602,
-      "total_tokens": 2173,
+      "completion_tokens": 97,
+      "total_tokens": 1668,
       "prompt_tokens_details": {
         "cached_tokens": 0,
+        "cache_write_tokens": 1568,
         "audio_tokens": 0
       },
       "completion_tokens_details": {
-        "reasoning_tokens": 512,
+        "reasoning_tokens": 25,
         "audio_tokens": 0,
         "accepted_prediction_tokens": 0,
         "rejected_prediction_tokens": 0
