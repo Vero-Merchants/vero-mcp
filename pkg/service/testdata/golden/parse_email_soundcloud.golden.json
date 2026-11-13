@@ -1,16 +1,16 @@
 {
-  "request_sha256": "075aa1eb16bf6e4bffbfa5237c9d04f1edd333a20ba3e336b39c6adf6fd74d6b",
+  "request_sha256": "9d3f283ce35236f515983e2b8196c0b8dcc95eaab3300d73613144ae71b1069c",
   "response": {
-    "id": "chatcmpl-E1sJ26EWvvVzahKQ0XvPv21iZOIAL",
+    "id": "chatcmpl-EjiWn3GPdNeC0xBmvp9KKqqVfHfnQ",
     "object": "chat.completion",
-    "created": 1784115788,
-    "model": "gpt-5-nano-2025-08-07",
+    "created": 1794564633,
+    "model": "gpt-6-luna",
     "choices": [
       {
         "index": 0,
         "message": {
           "role": "assistant",
-          "content": "{\"currency\":\"USD\",\"isSubscription\":true,\"lastFourDigits\":\"6222\",\"lineItems\":[{\"description\":\"Go+\",\"quantity\":1,\"totalPrice\":11.99,\"unitPrice\":11.99}],\"merchantAddress\":\"Karl Marx Str. 101. Berlin, Berlin 12043 Germany\",\"merchantName\":\"SoundCloud Global Limited \u0026 Co. KG\",\"paymentMethod\":\"Visa\",\"subtotal\":11.99,\"tax\":0,\"tip\":0,\"total\":11.99,\"transactionDate\":\"2026-04-24\",\"transactionTime\":\"\"}",
+          "content": "{\"currency\":\"USD\",\"isSubscription\":true,\"lastFourDigits\":\"6222\",\"lineItems\":[{\"description\":\"Go+\",\"quantity\":1,\"totalPrice\":11.99,\"unitPrice\":11.99}],\"merchantAddress\":\"Karl Marx Str. 101, Berlin, Berlin 12043, Germany\",\"merchantName\":\"SoundCloud\",\"paymentMethod\":\"Visa\",\"subtotal\":11.99,\"tax\":0,\"tip\":0,\"total\":11.99,\"transactionDate\":\"2026-04-24\",\"transactionTime\":\"\"}",
           "refusal": null,
           "annotations": []
         },
@@ -19,14 +19,15 @@
     ],
     "usage": {
       "prompt_tokens": 1241,
-      "completion_tokens": 1923,
-      "total_tokens": 3164,
+      "completion_tokens": 183,
+      "total_tokens": 1424,
       "prompt_tokens_details": {
         "cached_tokens": 0,
+        "cache_write_tokens": 1238,
         "audio_tokens": 0
       },
       "completion_tokens_details": {
-        "reasoning_tokens": 1792,
+        "reasoning_tokens": 59,
         "audio_tokens": 0,
         "accepted_prediction_tokens": 0,
         "rejected_prediction_tokens": 0

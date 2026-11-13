@@ -1,16 +1,16 @@
 {
-  "request_sha256": "4abb78bd9c2aea6bbe747ddfd360167fea320e12cdbec639312af8ba93aa041a",
+  "request_sha256": "68b66cb4f05d7baa49da5fcc01cc98bd2ca63261d8eae2755f464590f087c321",
   "response": {
-    "id": "chatcmpl-EC00RY3DFgnHkPP3c4mXkZqRQvFfJ",
+    "id": "chatcmpl-EjiWN4pZgMCJorWPXyRW8BgaG0wo0",
     "object": "chat.completion",
-    "created": 1786528667,
-    "model": "gpt-5-nano-2025-08-07",
+    "created": 1794564607,
+    "model": "gpt-6-luna",
     "choices": [
       {
         "index": 0,
         "message": {
           "role": "assistant",
-          "content": "{\"currency\":\"USD\",\"isSubscription\":false,\"lastFourDigits\":\"1109\",\"lineItems\":[{\"description\":\"Rope, 50ft\",\"quantity\":1,\"totalPrice\":34,\"unitPrice\":34},{\"description\":\"Deck Brush\",\"quantity\":1,\"totalPrice\":18,\"unitPrice\":18},{\"description\":\"Brass Cleat\",\"quantity\":1,\"totalPrice\":12,\"unitPrice\":12}],\"merchantAddress\":\"14 Dock Road, Boston, MA 02210\",\"merchantName\":\"Harbor Supply Co.\",\"paymentMethod\":\"Visa\",\"subtotal\":52,\"tax\":3.25,\"tip\":0,\"total\":55.25,\"transactionDate\":\"2025-07-02\",\"transactionTime\":\"\"}",
+          "content": "{\n  \"currency\": \"USD\",\n  \"isSubscription\": false,\n  \"lastFourDigits\": \"1109\",\n  \"lineItems\": [\n    {\n      \"description\": \"Rope, 50ft\",\n      \"quantity\": 1,\n      \"totalPrice\": 34,\n      \"unitPrice\": 34\n    },\n    {\n      \"description\": \"Deck Brush\",\n      \"quantity\": 1,\n      \"totalPrice\": 18,\n      \"unitPrice\": 18\n    },\n    {\n      \"description\": \"Brass Cleat\",\n      \"quantity\": 1,\n      \"totalPrice\": 12,\n      \"unitPrice\": 12\n    }\n  ],\n  \"merchantAddress\": \"14 Dock Road, Boston, MA 02210\",\n  \"merchantName\": \"Harbor Supply Co.\",\n  \"paymentMethod\": \"Visa\",\n  \"subtotal\": 52,\n  \"tax\": 3.25,\n  \"tip\": 0,\n  \"total\": 55.25,\n  \"transactionDate\": \"2025-07-02\",\n  \"transactionTime\": \"\"\n}",
           "refusal": null,
           "annotations": []
         },
@@ -19,14 +19,15 @@
     ],
     "usage": {
       "prompt_tokens": 1121,
-      "completion_tokens": 2465,
-      "total_tokens": 3586,
+      "completion_tokens": 297,
+      "total_tokens": 1418,
       "prompt_tokens_details": {
         "cached_tokens": 0,
+        "cache_write_tokens": 1118,
         "audio_tokens": 0
       },
       "completion_tokens_details": {
-        "reasoning_tokens": 2304,
+        "reasoning_tokens": 51,
         "audio_tokens": 0,
         "accepted_prediction_tokens": 0,
         "rejected_prediction_tokens": 0

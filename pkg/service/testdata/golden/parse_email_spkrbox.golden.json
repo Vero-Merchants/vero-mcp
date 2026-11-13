@@ -1,16 +1,16 @@
 {
-  "request_sha256": "0d181e9022e2e50c19fdf7e9a6dbe15d1c7f43f44f4f98c80490c6e8a6d7da4b",
+  "request_sha256": "c7117ca449b40549f799c608a1bb99f690e1584380e8665b0774c72349644d40",
   "response": {
-    "id": "chatcmpl-E1sITiHXhU6qVw2TPIHaP8Gbn2fe2",
+    "id": "chatcmpl-EjiWBEHhMkVF1s9UtS2BSiWuCF6o7",
     "object": "chat.completion",
-    "created": 1784115753,
-    "model": "gpt-5-nano-2025-08-07",
+    "created": 1794564595,
+    "model": "gpt-6-luna",
     "choices": [
       {
         "index": 0,
         "message": {
           "role": "assistant",
-          "content": "{\"currency\":\"USD\",\"isSubscription\":false,\"lastFourDigits\":\"2676\",\"lineItems\":[{\"description\":\"Can Modelo\",\"quantity\":2,\"totalPrice\":12,\"unitPrice\":6}],\"merchantAddress\":\"200 Grand River Avenue, Detroit, MI 48226\",\"merchantName\":\"SPKRBOX\",\"paymentMethod\":\"VISA CREDIT\",\"subtotal\":12,\"tax\":0,\"tip\":2.26,\"total\":14.26,\"transactionDate\":\"2026-05-25\",\"transactionTime\":\"23:17\"}",
+          "content": "{\"currency\":\"USD\",\"isSubscription\":false,\"lastFourDigits\":\"2676\",\"lineItems\":[{\"description\":\"Can Modelo\",\"quantity\":2,\"totalPrice\":12,\"unitPrice\":6}],\"merchantAddress\":\"200 Grand River Avenue, Detroit, MI 48226\",\"merchantName\":\"SPKRBOX\",\"paymentMethod\":\"Visa\",\"subtotal\":12,\"tax\":0,\"tip\":2.26,\"total\":14.26,\"transactionDate\":\"2026-05-25\",\"transactionTime\":\"23:17\"}",
           "refusal": null,
           "annotations": []
         },
@@ -19,14 +19,15 @@
     ],
     "usage": {
       "prompt_tokens": 1046,
-      "completion_tokens": 2361,
-      "total_tokens": 3407,
+      "completion_tokens": 175,
+      "total_tokens": 1221,
       "prompt_tokens_details": {
         "cached_tokens": 0,
+        "cache_write_tokens": 1043,
         "audio_tokens": 0
       },
       "completion_tokens_details": {
-        "reasoning_tokens": 2240,
+        "reasoning_tokens": 56,
         "audio_tokens": 0,
         "accepted_prediction_tokens": 0,
         "rejected_prediction_tokens": 0

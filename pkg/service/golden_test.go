@@ -231,7 +231,10 @@ func TestGolden_ParseImage(t *testing.T) {
 				MerchantCity:    "Detroit",
 				MerchantState:   "MI",
 				TransactionDate: "2026-05-28",
-				TransactionTime: "13:20",
+				// The receipt prints two clocks: 1:20 PM when the order was placed and
+				// 2:41 PM on the card payment. The payment time is when the charge
+				// happened, so it is the one that lines up with the bank transaction.
+				TransactionTime: "14:41",
 				Subtotal:        floatPtr(99.00),
 				Tax:             floatPtr(5.94),
 				Tip:             floatPtr(20.00),
@@ -240,12 +243,12 @@ func TestGolden_ParseImage(t *testing.T) {
 				PaymentMethod:   "Visa",
 				LastFourDigits:  "2676",
 				LineItems: []domain.LineItem{
-					{Description: "KEY WEST SHRIMP WRAP", Quantity: 1, UnitPrice: 23, Price: 23},
-					// The two identical PARC BURGER lines are consolidated into one
+					{Description: "Key West Shrimp Wrap", Quantity: 1, UnitPrice: 23, Price: 23},
+					// The two identical Parc Burger lines are consolidated into one
 					// row with quantity 2 by consolidateLineItems.
-					{Description: "PARC BURGER", Quantity: 2, UnitPrice: 28, Price: 56},
-					{Description: "DIET COKE", Quantity: 1, UnitPrice: 5, Price: 5},
-					{Description: "TRUFFLE FRIES", Quantity: 1, UnitPrice: 15, Price: 15},
+					{Description: "Parc Burger", Quantity: 2, UnitPrice: 28, Price: 56},
+					{Description: "Diet Coke", Quantity: 1, UnitPrice: 5, Price: 5},
+					{Description: "Truffle Fries", Quantity: 1, UnitPrice: 15, Price: 15},
 				},
 			},
 		},
@@ -271,8 +274,8 @@ func TestGolden_ParseImage(t *testing.T) {
 				PaymentMethod:   "Visa",
 				LastFourDigits:  "2676",
 				LineItems: []domain.LineItem{
-					{Description: "GROCERY", Quantity: 1, UnitPrice: 5.99, Price: 5.99},
-					{Description: "CHOBANI STRAWBERRY", Quantity: 1, UnitPrice: 2.79, Price: 2.79},
+					{Description: "Grocery", Quantity: 1, UnitPrice: 5.99, Price: 5.99},
+					{Description: "Chobani Strawberry", Quantity: 1, UnitPrice: 2.79, Price: 2.79},
 				},
 			},
 		},
@@ -287,7 +290,9 @@ func TestGolden_ParseImage(t *testing.T) {
 				MerchantCity:    "Detroit",
 				MerchantState:   "MI",
 				TransactionDate: "2026-05-17",
-				TransactionTime: "13:53",
+				// "Ordered" reads 1:53 PM; the card payment below it reads 2:27 PM,
+				// which is when the charge happened.
+				TransactionTime: "14:27",
 				Subtotal:        floatPtr(26.00),
 				Tax:             floatPtr(1.14),
 				Tip:             floatPtr(5.00),
@@ -324,7 +329,7 @@ func TestGolden_ParseImage(t *testing.T) {
 				Tip:             floatPtr(0),
 				Total:           floatPtr(4.32),
 				Currency:        "USD",
-				PaymentMethod:   "VISA",
+				PaymentMethod:   "Visa",
 				LastFourDigits:  "2676",
 				LineItems: []domain.LineItem{
 					{Description: "Sandy Beach", Quantity: 1, UnitPrice: 3.95, Price: 3.95},
@@ -336,11 +341,11 @@ func TestGolden_ParseImage(t *testing.T) {
 			// bug, where gpt-5-nano returned anywhere from 0 to 29 items. What this
 			// case guards is breadth — that the long tail of the item list survives.
 			//
-			// It is not yet perfect: the model reads one of the two KMBCHA lines and
-			// two of the three Bottle Deposits, so the items sum to $138.90 against a
-			// true $142.49 (total - tax). That $3.59 gap is the residue of the
-			// original bug and is tracked separately; the win here is that it used to
-			// be ~$70. If a future change widens the gap, this fixture will say so.
+			// It is not yet perfect: the model folds the three $0.10 Bottle Deposit
+			// lines into tax rather than listing them, so tax reads $1.05 against a
+			// printed $0.75 and the items sum to $142.19 against a true $142.49
+			// (total - printed tax). Items plus tax still reconcile to the total.
+			// If a future change widens the gap, this fixture will say so.
 			//
 			// The fixture is the heif-convert output of receipt6.HEIC because that is
 			// what production sends — OpenAI's vision API rejects HEIC bytes.
@@ -356,50 +361,48 @@ func TestGolden_ParseImage(t *testing.T) {
 				TransactionDate: "2026-07-12",
 				TransactionTime: "19:12",
 				// This receipt prints no subtotal line, only tax and total.
-				Subtotal:       floatPtr(0),
-				Tax:            floatPtr(0.75),
+				Subtotal: floatPtr(0),
+				// Printed tax is $0.75; the extra $0.30 is the bottle deposits (see above).
+				Tax:            floatPtr(1.05),
 				Tip:            floatPtr(0),
 				Total:          floatPtr(143.24),
 				Currency:       "USD",
 				PaymentMethod:  "Visa",
 				LastFourDigits: "2676",
 				LineItems: []domain.LineItem{
-					{Description: "TURKEY CLUB WRAP", Quantity: 1, UnitPrice: 5.49, Price: 5.49},
-					{Description: "PIZZA PARLANNO W/SAUSAGE", Quantity: 1, UnitPrice: 5.49, Price: 5.49},
-					{Description: "MILK HALF GALLON WHOLE", Quantity: 1, UnitPrice: 2.49, Price: 2.49},
-					{Description: "CP RED JUICE", Quantity: 2, UnitPrice: 3.99, Price: 7.98},
-					{Description: "JELLY CONCORD GRAPE ORGA", Quantity: 1, UnitPrice: 3.49, Price: 3.49},
-					{Description: "SPICE GROUND BLACK PEPPE", Quantity: 1, UnitPrice: 2.29, Price: 2.29},
-					{Description: "YOGURT ORG VANILLA QUART", Quantity: 1, UnitPrice: 3.99, Price: 3.99},
-					{Description: "R-SALAD BABY SPINACH ORG", Quantity: 1, UnitPrice: 2.29, Price: 2.29},
-					{Description: "CP GREEN JUICE", Quantity: 1, UnitPrice: 4.29, Price: 4.29},
-					// Printed twice on the receipt; only one is read. See the $3.59 gap
-					// noted above.
-					{Description: "KMBCHA PNK LDY APLE HEAL", Quantity: 1, UnitPrice: 3.49, Price: 3.49},
-					// Printed three times; two are read, and consolidateLineItems
-					// merges those into a single quantity-2 row.
-					{Description: "Bottle Deposit", Quantity: 2, UnitPrice: 0.1, Price: 0.2},
-					{Description: "R-RASPberries 12 OZ", Quantity: 1, UnitPrice: 6.99, Price: 6.99},
-					{Description: "R-STRAWBERRIES 1 LB", Quantity: 1, UnitPrice: 3.49, Price: 3.49},
-					{Description: "HOT DOG BUNS", Quantity: 1, UnitPrice: 2.49, Price: 2.49},
-					{Description: "MULTIGRAIN BREAD", Quantity: 1, UnitPrice: 2.99, Price: 2.99},
-					{Description: "PITA", Quantity: 1, UnitPrice: 1.99, Price: 1.99},
-					{Description: "MANGO SOFT & JUICY", Quantity: 2, UnitPrice: 2.49, Price: 4.98},
-					{Description: "SALMON FILLET SKIN ON", Quantity: 1, UnitPrice: 10.79, Price: 10.79},
-					{Description: "PORK NAT CRATE FREE BNLS", Quantity: 1, UnitPrice: 8.55, Price: 8.55},
-					{Description: "SAUSAGE CHICKEN UNEXPECT", Quantity: 2, UnitPrice: 4.49, Price: 8.98},
-					{Description: "BANANA EACH", Quantity: 7, UnitPrice: 0.23, Price: 1.61},
-					{Description: "FETA", Quantity: 1, UnitPrice: 3.79, Price: 3.79},
-					{Description: "CREAMY MAC AND CHEESE", Quantity: 1, UnitPrice: 4.99, Price: 4.99},
-					{Description: "T CANDLE TIN BEACH DAY", Quantity: 2, UnitPrice: 3.99, Price: 7.98},
-					{Description: "SPICE CALIFORNIA ONION P", Quantity: 1, UnitPrice: 1.99, Price: 1.99},
-					{Description: "A-GARLIC EACH", Quantity: 1, UnitPrice: 0.49, Price: 0.49},
-					{Description: "PEANUT BUTTER CREAMY NO", Quantity: 1, UnitPrice: 2.19, Price: 2.19},
-					{Description: "PESTO BASIL", Quantity: 1, UnitPrice: 2.99, Price: 2.99},
-					{Description: "APPLE EACH HONEYCRISP", Quantity: 4, UnitPrice: 1.79, Price: 7.16},
-					{Description: "A-TOMATOES CHERRY ON THE", Quantity: 1, UnitPrice: 4.99, Price: 4.99},
-					{Description: "T ENRICH FACIAL MOISTURIZE", Quantity: 1, UnitPrice: 4.49, Price: 4.49},
-					{Description: "KOMBUCHA GINGERADE GTS", Quantity: 1, UnitPrice: 3.49, Price: 3.49},
+					{Description: "Turkey Club Wrap", Quantity: 1, UnitPrice: 5.49, Price: 5.49},
+					{Description: "Pizza Parlanno w/Sausage", Quantity: 1, UnitPrice: 5.49, Price: 5.49},
+					{Description: "Milk Half Gallon Whole", Quantity: 1, UnitPrice: 2.49, Price: 2.49},
+					{Description: "CP Red Juice", Quantity: 2, UnitPrice: 3.99, Price: 7.98},
+					{Description: "Jelly Concord Grape Organic", Quantity: 1, UnitPrice: 3.49, Price: 3.49},
+					{Description: "Spice Ground Black Pepper", Quantity: 1, UnitPrice: 2.29, Price: 2.29},
+					{Description: "Yogurt Organic Vanilla Quart", Quantity: 1, UnitPrice: 3.99, Price: 3.99},
+					{Description: "Salad Baby Spinach Organic", Quantity: 1, UnitPrice: 2.29, Price: 2.29},
+					{Description: "CP Green Juice", Quantity: 1, UnitPrice: 4.29, Price: 4.29},
+					// Printed twice on the receipt as KMBCHA PNK LDY APLE HEAL;
+					// consolidateLineItems merges the two into one quantity-2 row.
+					{Description: "Kombucha Pink Lady Apple", Quantity: 2, UnitPrice: 3.49, Price: 6.98},
+					{Description: "Raspberries 12 oz", Quantity: 1, UnitPrice: 6.99, Price: 6.99},
+					{Description: "Strawberries 1 lb", Quantity: 1, UnitPrice: 3.49, Price: 3.49},
+					{Description: "Hot Dog Buns", Quantity: 1, UnitPrice: 2.49, Price: 2.49},
+					{Description: "Multigrain Bread", Quantity: 1, UnitPrice: 2.99, Price: 2.99},
+					{Description: "Pita", Quantity: 1, UnitPrice: 1.99, Price: 1.99},
+					{Description: "Mango Soft & Juicy", Quantity: 2, UnitPrice: 2.49, Price: 4.98},
+					{Description: "Salmon Fillet Skin On", Quantity: 1, UnitPrice: 10.79, Price: 10.79},
+					{Description: "Pork Natural Crate Free Boneless", Quantity: 1, UnitPrice: 8.55, Price: 8.55},
+					{Description: "Sausage Chicken Unexpect", Quantity: 2, UnitPrice: 4.49, Price: 8.98},
+					{Description: "Banana Each", Quantity: 7, UnitPrice: 0.23, Price: 1.61},
+					{Description: "Feta", Quantity: 1, UnitPrice: 3.79, Price: 3.79},
+					{Description: "Creamy Mac and Cheese", Quantity: 1, UnitPrice: 4.99, Price: 4.99},
+					{Description: "Candle Tin Beach Day", Quantity: 2, UnitPrice: 3.99, Price: 7.98},
+					{Description: "Spice California Onion P", Quantity: 1, UnitPrice: 1.99, Price: 1.99},
+					{Description: "Garlic Each", Quantity: 1, UnitPrice: 0.49, Price: 0.49},
+					{Description: "Peanut Butter Creamy No", Quantity: 1, UnitPrice: 2.19, Price: 2.19},
+					{Description: "Pesto Basil", Quantity: 1, UnitPrice: 2.99, Price: 2.99},
+					{Description: "Apple Each Honeycrisp", Quantity: 4, UnitPrice: 1.79, Price: 7.16},
+					{Description: "Tomatoes Cherry on the", Quantity: 1, UnitPrice: 4.99, Price: 4.99},
+					{Description: "Enrich Facial Moisturize", Quantity: 1, UnitPrice: 4.49, Price: 4.49},
+					{Description: "Kombucha Gingerade GT's", Quantity: 1, UnitPrice: 3.49, Price: 3.49},
 				},
 			},
 		},
@@ -493,8 +496,9 @@ Thank you for your purchase!`,
 				Tip:             floatPtr(2.26),
 				Total:           floatPtr(14.26),
 				Currency:        "USD",
-				PaymentMethod:   "VISA CREDIT",
-				LastFourDigits:  "2676",
+				// The email labels the card "VISA CREDIT"; the model reports the network.
+				PaymentMethod:  "Visa",
+				LastFourDigits: "2676",
 				LineItems: []domain.LineItem{
 					{Description: "Can Modelo", Quantity: 2, UnitPrice: 6, Price: 12},
 				},
@@ -517,10 +521,10 @@ Thank you for your purchase!`,
 				MerchantState:   "MI",
 				TransactionDate: "2026-07-26",
 				TransactionTime: "18:27",
-				// With no breakdown in the PDF the charged amount becomes the
-				// subtotal and the 6% Michigan tax is lost — the merged case
-				// recovers both from the body (350.00 / 21.00).
-				Subtotal:       floatPtr(371.00),
+				// The PDF prints only the charged amount: there is no subtotal to
+				// read and the 6% Michigan tax is lost — the merged case recovers
+				// both from the body (350.00 / 21.00).
+				Subtotal:       floatPtr(0),
 				Tax:            floatPtr(0),
 				Tip:            floatPtr(0),
 				Total:          floatPtr(371.00),
@@ -537,9 +541,9 @@ Thank you for your purchase!`,
 			bodyPath:     "testdata/emails/email2.txt",
 			contextLabel: "American Airlines receipt",
 			want: domain.OCRResult{
-				// The legal name; normalizeMerchantSuffix reduces this to
-				// "american airlines", the same key the bare name produces.
-				MerchantName:    "American Airlines, Inc.",
+				// The bare brand. The legal name "American Airlines, Inc." would
+				// match too: normalizeMerchantSuffix reduces both to the same key.
+				MerchantName:    "American Airlines",
 				TransactionDate: "2026-05-13",
 				Subtotal:        floatPtr(331.16),
 				Tax:             floatPtr(40.24),
@@ -624,7 +628,8 @@ func TestGolden_ParseTextSectionsAsReceipt(t *testing.T) {
 				LastFourDigits:  "2676",
 				LineItems: []domain.LineItem{
 					// Present only in the email body — the whole point of the case.
-					{Description: "Unstructured Linen Blazer - Cream", Quantity: 1, UnitPrice: 350.00, Price: 350.00},
+					// The body prints the size and colour ("44 / Cream") on the next line.
+					{Description: "Unstructured Linen Blazer - Cream, 44 / Cream", Quantity: 1, UnitPrice: 350.00, Price: 350.00},
 				},
 			},
 		},
@@ -780,7 +785,10 @@ Total charged: $124.94`},
 				MerchantCity:    "Detroit",
 				MerchantState:   "MI",
 				TransactionDate: "2026-05-28",
-				TransactionTime: "13:20",
+				// The receipt prints two clocks: 1:20 PM when the order was placed and
+				// 2:41 PM on the card payment. The payment time is when the charge
+				// happened, so it is the one that lines up with the bank transaction.
+				TransactionTime: "14:41",
 				Subtotal:        floatPtr(99.00),
 				Tax:             floatPtr(5.94),
 				Tip:             floatPtr(20.00),

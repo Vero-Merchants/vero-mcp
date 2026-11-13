@@ -1,16 +1,16 @@
 {
-  "request_sha256": "09d44fff48bccd183e2f6c1a985c722b89dd21dc7dd1f853ed3c9cec8cb2b0cc",
+  "request_sha256": "abda4ebef21ab489fece5f001cefec3e085b2195ebe1e15de4b19e499fd911b5",
   "response": {
-    "id": "chatcmpl-E1s7iJ4yK9MsIyhVh9eBQy31XsLcq",
+    "id": "chatcmpl-EjiXVdhpqREWqZxBT0E187bRLrynj",
     "object": "chat.completion",
-    "created": 1784115086,
-    "model": "gpt-5-mini-2025-08-07",
+    "created": 1794564677,
+    "model": "gpt-6.1-terra",
     "choices": [
       {
         "index": 0,
         "message": {
           "role": "assistant",
-          "content": "{\n  \"currency\": \"USD\",\n  \"isSubscription\": false,\n  \"lastFourDigits\": \"2676\",\n  \"lineItems\": [\n    {\n      \"description\": \"Sandy Beach\",\n      \"quantity\": 1,\n      \"totalPrice\": 3.95,\n      \"unitPrice\": 3.95\n    }\n  ],\n  \"merchantAddress\": \"500 Rep John Lewis Way S, Nashville, TN 37203\",\n  \"merchantName\": \"Parlor Doughnuts\",\n  \"paymentMethod\": \"VISA\",\n  \"subtotal\": 3.95,\n  \"tax\": 0.37,\n  \"tip\": 0,\n  \"total\": 4.32,\n  \"transactionDate\": \"2026-05-30\",\n  \"transactionTime\": \"09:55\"\n}",
+          "content": "{\"currency\":\"USD\",\"isSubscription\":false,\"lastFourDigits\":\"2676\",\"lineItems\":[{\"description\":\"Sandy Beach\",\"quantity\":1,\"totalPrice\":3.95,\"unitPrice\":3.95}],\"merchantAddress\":\"500 Rep John Lewis Way S, Nashville, TN 37203\",\"merchantName\":\"Parlor Doughnuts\",\"paymentMethod\":\"Visa\",\"subtotal\":3.95,\"tax\":0.37,\"tip\":0,\"total\":4.32,\"transactionDate\":\"2026-05-30\",\"transactionTime\":\"09:55\"}",
           "refusal": null,
           "annotations": []
         },
@@ -18,9 +18,9 @@
       }
     ],
     "usage": {
-      "prompt_tokens": 4377,
-      "completion_tokens": 185,
-      "total_tokens": 4562,
+      "prompt_tokens": 29797,
+      "completion_tokens": 123,
+      "total_tokens": 29920,
       "prompt_tokens_details": {
         "cached_tokens": 0,
         "audio_tokens": 0

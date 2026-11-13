@@ -387,10 +387,10 @@ func TestCorrectCategory_SendsMerchantAndEnum(t *testing.T) {
 
 // Two settings that have to move together. A reasoning model counts reasoning
 // against max_completion_tokens, so too small a budget truncates the response to
-// empty. But minimal effort is also wrong here, unlike the other nano-tier calls:
-// choosing from a 103-value enum is not a yes/no, and at minimal effort the model
-// reasoned to FOOD_AND_DRINK_COFFEE while emitting an unrelated category, with
-// confidence low enough that even its correct answers fell below the apply gate.
+// empty. But reasoning off is also wrong here, unlike the other text calls:
+// choosing from a 103-value enum is not a yes/no, and with little reasoning the
+// model argues its way to FOOD_AND_DRINK_COFFEE while emitting an unrelated category,
+// with confidence low enough that even its correct answers fall below the apply gate.
 func TestCorrectCategory_ThinksHardEnoughToChooseFromTheEnum(t *testing.T) {
 	var body map[string]interface{}
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -410,8 +410,8 @@ func TestCorrectCategory_ThinksHardEnoughToChooseFromTheEnum(t *testing.T) {
 		[]domain.LineItem{{Description: "Latte"}}, "FOOD_AND_DRINK", "FOOD_AND_DRINK_COFFEE"); err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if effort := body["reasoning_effort"]; effort == "minimal" || effort == nil {
-		t.Errorf("reasoning_effort = %v; minimal is not enough to pick from the category enum", effort)
+	if effort := body["reasoning_effort"]; effort == "none" || effort == nil {
+		t.Errorf("reasoning_effort = %v; no reasoning is not enough to pick from the category enum", effort)
 	}
 	if got := body["max_completion_tokens"].(float64); got < 8192 {
 		t.Errorf("max_completion_tokens = %v, too small to fit this much reasoning plus the JSON payload", got)
@@ -863,8 +863,8 @@ func TestBuildTextReceiptRequest_Basic(t *testing.T) {
 	if err := json.Unmarshal(reqBytes, &body); err != nil {
 		t.Fatalf("invalid JSON: %v", err)
 	}
-	if body.Model != "gpt-5-nano" {
-		t.Errorf("model = %q, want \"gpt-5-nano\"", body.Model)
+	if body.Model != "gpt-6-luna" {
+		t.Errorf("model = %q, want \"gpt-6-luna\"", body.Model)
 	}
 
 	prompt := extractPromptText(t, reqBytes)

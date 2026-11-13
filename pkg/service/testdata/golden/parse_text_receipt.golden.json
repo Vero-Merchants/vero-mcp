@@ -1,10 +1,10 @@
 {
-  "request_sha256": "6f5e50a71ad49d7b77c3de503832ee4ddbe32e16fee323d785e7bda6b1c94e9a",
+  "request_sha256": "bd8ac3a928ad96a8239db553842d583b7bcde66c063b58ef74cdfeb0bf140ba5",
   "response": {
-    "id": "chatcmpl-E1sILAa31jctQFvNfC7Pr7t5MY8vE",
+    "id": "chatcmpl-EjiW9KpxsHYcvgTQ71ZINcfh9KvgL",
     "object": "chat.completion",
-    "created": 1784115745,
-    "model": "gpt-5-nano-2025-08-07",
+    "created": 1794564593,
+    "model": "gpt-6-luna",
     "choices": [
       {
         "index": 0,
@@ -19,14 +19,15 @@
     ],
     "usage": {
       "prompt_tokens": 899,
-      "completion_tokens": 981,
-      "total_tokens": 1880,
+      "completion_tokens": 161,
+      "total_tokens": 1060,
       "prompt_tokens_details": {
         "cached_tokens": 0,
+        "cache_write_tokens": 0,
         "audio_tokens": 0
       },
       "completion_tokens_details": {
-        "reasoning_tokens": 832,
+        "reasoning_tokens": 13,
         "audio_tokens": 0,
         "accepted_prediction_tokens": 0,
         "rejected_prediction_tokens": 0
